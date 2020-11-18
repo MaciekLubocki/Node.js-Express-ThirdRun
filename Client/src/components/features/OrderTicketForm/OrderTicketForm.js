@@ -39,12 +39,12 @@ class OrderTicketForm extends React.Component {
 
   submitForm = async (e) => {
     const { order } = this.state;
-    const { addSeat } = this.props;
+    const { addSeat,loadSeats } = this.props;
 
     e.preventDefault();
 
     if(order.client && order.email && order.day && order.seat) {
-      addSeat(order);
+      await addSeat(order);
       this.setState({ 
         order: {
           client: '',
@@ -57,6 +57,8 @@ class OrderTicketForm extends React.Component {
     } else {
       this.setState({ isError: true });
     }
+  
+  loadSeats();
   }
 
   render() {
@@ -92,7 +94,7 @@ class OrderTicketForm extends React.Component {
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Input required type="checkbox" /> I agree with <a href="#">Terms and conditions</a> and <a href="#">Privacy Policy</a>.
+                <Input required type="checkbox" /> I agree with <a href="#test">Terms and conditions</a> and <a href="#">Privacy Policy</a>.
               </Label>
             </FormGroup>
             <Button color="primary" className="mt-3">Submit</Button>
