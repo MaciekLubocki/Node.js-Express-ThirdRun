@@ -5,7 +5,8 @@ const { v4: uuidv4 } = require("uuid");
 
 router.route("/seats").get((req, res) => {
   res.json(db.seats);
-});
+}
+);
 
 router.route("/seats/:id").get((req, res) => {
   res.json(db.seats.filter((unit) => unit.id == req.params.id));
@@ -46,6 +47,7 @@ router.route("/seats/:id").put((req, res) => {
         unit.id == id && { ...unit, author: author, text: text, message: "PUT" }
     )
   );
+  req.io.emit('seatsUpdated', db.seats)
 });
 
 module.exports = router;
